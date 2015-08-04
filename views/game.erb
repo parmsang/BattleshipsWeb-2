@@ -1,0 +1,12 @@
+<div>
+  <% if @name != "" %>
+  Hello, <%= @name %>
+  <% else %>
+  Hello, Player 1
+  <% end %>
+</div>
+<div>
+  <form action="/start_game">
+  <input type="submit" value ="Start Game">
+</form>
+</div>
