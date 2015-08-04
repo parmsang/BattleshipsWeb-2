@@ -25,8 +25,14 @@ class BattleshipsWeb < Sinatra::Base
 
   get '/start_game' do
     $game = Game.new Player, Board
-    erb :start_game    
+    erb :start_game
   end
+
+  get '/shoot' do
+    erb :take_a_shot
+  end
+
+  
   # start the server if ruby file executed directly
   run! if app_file == $0
 

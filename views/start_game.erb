@@ -2,4 +2,12 @@
   <pre>
   <%= $game.own_board_view($game.player_1) %>
   </pre>
+  <p>
+  
+  Enter coordinates to fire upon opponent
+  </p>
+  <form action="/shoot">
+    <input type="text" name="coordinates">
+    <input type="submit" value="Fire">
+  </form>
 </div>
