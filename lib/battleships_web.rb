@@ -6,9 +6,9 @@ class BattleshipsWeb < Sinatra::Base
     set :bind, '0.0.0.0'
     set :port, 3000
   end
-  
+
   set :views, proc { File.join(root, '..', 'views') }
-        
+
   get '/' do
     erb :index
   end
@@ -20,6 +20,10 @@ class BattleshipsWeb < Sinatra::Base
   get '/play' do
     @name=params[:name]
     erb :game
+  end
+
+  get '/start_game' do
+
   end
   # start the server if ruby file executed directly
   run! if app_file == $0

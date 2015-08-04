@@ -17,7 +17,7 @@ feature 'Starting a new game' do
     expect(page).to have_content "Hello, Player 1"
   end
   scenario 'Starts a new game' do
-    visit '/game'
+    visit '/play'
     click_button 'Start Game'
     expect(page).to have_content "ABCDEFGHIJ"
   end
