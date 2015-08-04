@@ -1,4 +1,5 @@
 require 'sinatra/base'
+require 'battleships'
 
 class BattleshipsWeb < Sinatra::Base
   # force port 3000 for Nitrous
@@ -23,7 +24,8 @@ class BattleshipsWeb < Sinatra::Base
   end
 
   get '/start_game' do
-
+    $game = Game.new Player, Board
+    erb :start_game    
   end
   # start the server if ruby file executed directly
   run! if app_file == $0
