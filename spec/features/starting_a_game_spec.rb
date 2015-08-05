@@ -21,17 +21,28 @@ feature 'Starting a new game' do
     click_button 'Start Game'
     expect(page).to have_content "ABCDEFGHIJ"
   end
-end
-feature 'Shooting at opponent board' do
-  scenario 'I am asked to enter coordinates' do
+  # scenario 'Puts ships on own board' do
+  #   visit '/start_game'
+  #   expect(page).to have_content "Please add ships to your board."
+  # end
+  scenario 'Places ships on own board' do
     visit '/start_game'
-    expect(page).to have_content "Enter coordinates to fire upon opponent"
-  end
-  scenario 'I can enter coordinates' do
-    visit '/start_game'
-    our_coordinates="A1"
-    fill_in "coordinates", with: our_coordinates
-    click_button 'Fire'
-    expect(page).to have_content "You have hit an opponent\'s ship"
+    click_button 'Place'
+    expect(page).to have_content "You have placed your first ship"
   end
 end
+
+
+# feature 'Shooting at opponent board' do
+#   scenario 'I am asked to enter coordinates' do
+#     visit '/start_game'
+#     expect(page).to have_content "Enter coordinates to fire upon opponent"
+#   end
+#   scenario 'I can enter coordinates' do
+#     visit '/start_game'
+#     our_coordinates="A1"
+#     fill_in "coordinates", with: our_coordinates
+#     click_button 'Fire'
+#     expect(page).to have_content "You have hit an opponent\'s ship"
+#   end
+# end

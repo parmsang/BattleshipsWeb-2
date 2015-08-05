@@ -2,12 +2,19 @@
   <pre>
   <%= $game.own_board_view($game.player_1) %>
   </pre>
-  <p>
-  
+  <form action="/place">
+  Please add ships to your board.
+  <input type="text" name="ship_orientation">
+  <input type="submit" value="Place">
+  </form>
+</div>
+  <!---<p>
+
+
   Enter coordinates to fire upon opponent
   </p>
   <form action="/shoot">
     <input type="text" name="coordinates">
     <input type="submit" value="Fire">
   </form>
-</div>
+</div> -->
