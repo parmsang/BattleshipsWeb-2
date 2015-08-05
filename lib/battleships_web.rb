@@ -28,10 +28,13 @@ class BattleshipsWeb < Sinatra::Base
     erb :start_game
   end
 
-  post '/start_game' do
-    $game = game.player1.place_ship
+  get '/place' do
     erb :place
+  end
 
+  post '/place' do
+    $game.player_2.place_ship Ship.battleship, :B1, :vertically
+    redirect '/place'
   end
 
   # get '/shoot' do
