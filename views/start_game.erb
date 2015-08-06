@@ -1,3 +1,7 @@
+<% if @fire_coordinates %>
+<% @result = $game.player_1.shoot @fire_coordinates.to_sym %>
+<% end %>
+
 <div>
 <strong>View of Opponent Board</strong>
   <pre>
@@ -7,7 +11,6 @@
 
 <%= $game.opponent_board_view($game.player_1) %>
 </pre>
-<strong>View of Own Board</strong>
 <p></p>
 
   <form action='/place' method='POST'>
@@ -24,10 +27,10 @@
   <input type="submit" value="Fire">
   </form>
 </div>
+<strong><%= @result %></strong>
 
-<% if @fire_coordinates %>
-<%= $game.player_1.shoot @fire_coordinates.to_sym %>
-<% end %>
+
+
 
   <!---<p>
 

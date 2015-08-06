@@ -25,7 +25,7 @@ class BattleshipsWeb < Sinatra::Base
 
   get '/start_game' do
     $game = Game.new Player, Board
-    # @fire_coordinates = params[:fire_coordinates]
+    @fire_coordinates = params[:fire_coordinates]
     erb :start_game
   end
 
