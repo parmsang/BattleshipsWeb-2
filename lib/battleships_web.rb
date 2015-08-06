@@ -25,24 +25,22 @@ class BattleshipsWeb < Sinatra::Base
 
   get '/start_game' do
     $game = Game.new Player, Board
-    @fire_coordinates = params[:fire_coordinates]
-    @ship_type = params[:ship_type]
-    @ship_coordinates = params[:ship_coordinates]
-    @ship_direction = params[:ship_direction]
     erb :start_game
   end
 
   post '/start_game' do
-    @fire_coordinates = params[:fire_coordinates]
+    if params[:fire_coordinates]
+      @fire_coordinates = params[:fire_coordinates]
+    else
+      $game.player_1.place_ship Ship.send(params[:ship_type]), params[:ship_coordinates].to_sym, params[:ship_direction]
+    end
     erb :start_game
   end
 
-  post '/start_game' do
-    @ship_type = params[:ship_type]
-    @ship_coordinates = params[:ship_coordinates]
-    @ship_direction = params[:ship_direction]
-    erb :start_game
-  end
+  # post '/start_game' do
+    
+  #   erb :start_game
+  # end
 
   get '/place' do
     erb :place

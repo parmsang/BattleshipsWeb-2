@@ -38,11 +38,6 @@ feature 'Starting a new game' do
 end
 
 feature 'Placing ships on board' do
-    scenario 'Places ships on own board' do
-      visit '/start_game'
-      click_button 'Place'
-      expect(page).to have_content "Enter coordinates to place ship"
-    end
 
     scenario 'describe ship orientation' do
       game = Game.new Player, Board
@@ -52,7 +47,7 @@ feature 'Placing ships on board' do
       click_button 'Submit'
       click_button 'Start Game'
       board = game.own_board_view(game.player_1)
-      find("option[value='Ship.submarine']").click
+      find("option[value='submarine']").click
       fill_in "ship_coordinates", with: "A1"
       find("option[value='vertical']").click
       click_button 'Place'
