@@ -34,12 +34,31 @@ feature 'Starting a new game' do
   #   visit '/start_game'
   #   expect(page).to have_content "Please add ships to your board."
   # end
-  scenario 'Places ships on own board' do
-    visit '/start_game'
-    click_button 'Place'
-    expect(page).to have_content "You have placed your first ship"
-  end
+  
 end
+
+feature 'Placing ships on board' do
+    scenario 'Places ships on own board' do
+      visit '/start_game'
+      click_button 'Place'
+      expect(page).to have_content "Enter coordinates to place ship"
+    end
+
+    scenario 'describe ship orientation' do
+      game = Game.new Player, Board
+      
+      visit '/'
+      click_link 'New Game'
+      click_button 'Submit'
+      click_button 'Start Game'
+      board = game.own_board_view(game.player_1)
+      find("option[value='Ship.submarine']").click
+      fill_in "ship_coordinates", with: "A1"
+      find("option[value='vertical']").click
+      click_button 'Place'
+      expect(page).to have_content board
+    end
+  end
 
 
 feature 'Shooting at opponent board' do

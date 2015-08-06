@@ -1,3 +1,7 @@
+<% if @ship_direction %>
+<% $game.player_1.place_ship Ship.submarine, :B1, :vertical %>
+<% end %>
+
 <% if @fire_coordinates %>
 <% @result = $game.player_1.shoot @fire_coordinates.to_sym %>
 <% end %>
@@ -12,10 +16,22 @@
 <%= $game.opponent_board_view($game.player_1) %>
 </pre>
 <p></p>
-
-  <form action='/place' method='POST'>
-  Please add ships to your board.
-  <input type="text" name="ship_orientation">
+  Enter coordinates to place ship
+  <form action='/start_game' method='POST'>
+  Ship Type:
+ <select name="ship_type"> 
+  <option value="Ship.submarine">Submarine</option>
+  <option value="Ship.destroyer">Destroyer</option>
+  <option value="Ship.cruiser">Cruiser</option>
+  <option value="Ship.battleship">Battleship</option>
+  <option value="Ship.aircraft_carrier">Aircraft Carrier</option>
+ </select>
+  Ship Coordinate:<input type="text" name="ship_coordinates">
+  Ship Direction:
+  <select name="ship_direction">
+  <option value="vertical">vertical</option>
+  <option value="horizontal">horizontal</option>
+  </select>
   <input type="submit" value="Place">
   </form>
 </div>

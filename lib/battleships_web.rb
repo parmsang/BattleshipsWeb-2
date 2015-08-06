@@ -26,11 +26,21 @@ class BattleshipsWeb < Sinatra::Base
   get '/start_game' do
     $game = Game.new Player, Board
     @fire_coordinates = params[:fire_coordinates]
+    @ship_type = params[:ship_type]
+    @ship_coordinates = params[:ship_coordinates]
+    @ship_direction = params[:ship_direction]
     erb :start_game
   end
 
   post '/start_game' do
     @fire_coordinates = params[:fire_coordinates]
+    erb :start_game
+  end
+
+  post '/start_game' do
+    @ship_type = params[:ship_type]
+    @ship_coordinates = params[:ship_coordinates]
+    @ship_direction = params[:ship_direction]
     erb :start_game
   end
 
@@ -40,7 +50,7 @@ class BattleshipsWeb < Sinatra::Base
 
   post '/place' do
     $game.player_2.place_ship Ship.battleship, :B1, :vertically
-    redirect '/place'
+    redirect '/start_game'
   end
 
   # get '/shoot' do
