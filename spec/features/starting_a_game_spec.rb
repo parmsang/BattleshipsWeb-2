@@ -42,16 +42,20 @@ feature 'Starting a new game' do
 end
 
 
-# feature 'Shooting at opponent board' do
-#   scenario 'I am asked to enter coordinates' do
-#     visit '/start_game'
-#     expect(page).to have_content "Enter coordinates to fire upon opponent"
-#   end
-#   scenario 'I can enter coordinates' do
-#     visit '/start_game'
-#     our_coordinates="A1"
-#     fill_in "coordinates", with: our_coordinates
-#     click_button 'Fire'
-#     expect(page).to have_content "You have hit an opponent\'s ship"
-#   end
-# end
+feature 'Shooting at opponent board' do
+  scenario 'I am asked to enter coordinates' do
+    visit '/start_game'
+    expect(page).to have_content "Enter coordinates to fire"
+  end
+
+  scenario 'I can enter coordinates' do
+    visit '/'
+    click_link 'New Game'
+    click_button 'Submit'
+    click_button 'Start Game'
+    coordinates = "A1"
+    fill_in "fire_coordinates", with: coordinates
+    click_button 'Fire'
+    expect(page).to have_content "miss"
+  end
+end

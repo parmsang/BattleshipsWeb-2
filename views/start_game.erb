@@ -16,6 +16,19 @@
   <input type="submit" value="Place">
   </form>
 </div>
+
+<div>
+  <form action='/start_game' method='POST'>
+  Enter coordinates to fire
+  <input type="text" name="fire_coordinates">
+  <input type="submit" value="Fire">
+  </form>
+</div>
+
+<% if @fire_coordinates %>
+<%= $game.player_1.shoot @fire_coordinates.to_sym %>
+<% end %>
+
   <!---<p>
 
 
