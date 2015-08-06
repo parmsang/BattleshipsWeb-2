@@ -1,10 +1,15 @@
 <div>
+<strong>View of Opponent Board</strong>
   <pre>
-  <%= $game.own_board_view($game.player_1) %>
-<!--  <%= $game.own_board_view($game.player_2) %>
-  <%= $game.opponent_board_view($game.player_1) %>
-  <%= $game.opponent_board_view($game.player_2) %>  -->
-  </pre>
+<%= $game.own_board_view($game.player_1) %>
+
+  ------------
+
+<%= $game.opponent_board_view($game.player_1) %>
+</pre>
+<strong>View of Own Board</strong>
+<p></p>
+
   <form action='/place' method='POST'>
   Please add ships to your board.
   <input type="text" name="ship_orientation">

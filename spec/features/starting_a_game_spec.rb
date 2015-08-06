@@ -17,9 +17,18 @@ feature 'Starting a new game' do
     expect(page).to have_content "Hello, Player 1"
   end
   scenario 'Starts a new game' do
+    game = Game.new Player, Board
+    board = game.own_board_view(game.player_1)
     visit '/play'
     click_button 'Start Game'
-    expect(page).to have_content "ABCDEFGHIJ"
+    expect(page).to have_content board
+  end
+  scenario 'Starts a new game' do
+    game = Game.new Player, Board
+    board = game.opponent_board_view(game.player_1)
+    visit '/play'
+    click_button 'Start Game'
+    expect(page).to have_content board
   end
   # scenario 'Puts ships on own board' do
   #   visit '/start_game'
