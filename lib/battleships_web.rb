@@ -17,38 +17,43 @@ class BattleshipsWeb < Sinatra::Base
   end
 
   get '/name_set' do
-    erb :player1_enter_name
+    erb :enter_name
   end
 
   get '/play' do
     @name = params[:name]
-    erb :hello_player1
+    erb :hello
   end
 
   get '/start_game' do
     $game = Game.new Player, Board
     $players ||= []
 
-    #redirect '/full_game' if full_game?
+    redirect '/full_game' if full_game?
     set_player_session
     $game.send(current_player1)
     erb :start_game
   end
 
   def current_player1
-    session[:player]
+    session[:current_player]
   end
 
   def full_game?
     $players.count == 2
   end
 
+  get '/full_game' do
+    
+    erb :lobby
+  end
+
   def set_player_session
     if $players.empty?
-      session[:player] = :player_1
+      session[:current_player] = :player_1
       $players << :player_1
     else
-      session[:player] = :player_2
+      session[:current_player] = :player_2
       $players << :player_2
     end
   end
@@ -57,31 +62,23 @@ class BattleshipsWeb < Sinatra::Base
     if params[:fire_coordinates]
       @fire_coordinates = params[:fire_coordinates]
       switch_players
-      #{}"It's #{session[current_player]}'s turn"
-      #p session
     else
-      $game.send(session[:player]).place_ship Ship.send(params[:ship_type]), params[:ship_coordinates].to_sym, params[:ship_direction]
+      $game.send(session[:current_player]).place_ship Ship.send(params[:ship_type]), params[:ship_coordinates].to_sym, params[:ship_direction]
     end
 
     erb :start_game
   end
 
-  # get "/" do
-  #   switch_players
-  #   "It's #{session["current_player"]}'s turn"
-  #   p session
-  # end
-
   def switch_players
-    $current_player = session[:player].freeze
-    if $current_player == :player_1
-      $current_player = :player_2
-    elsif $current_player == :player_2
-      $current_player = :player_1
-    else
-      $current_player = :player_1
+    @current_player = session[:current_player].freeze
+      if @current_player == :player_1
+      session[:current_player] = :player_2
+    elsif @current_player == :player_2
+      session[:current_player] = :player_1
+      else
+      session[:current_player] = :player_1
+      end
     end
-  end
 
   # start the server if ruby file executed directly
   run! if app_file == $0
