@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'battleships' 
+gem 'battleships'
 gem 'sinatra'
 
 group :development, :test do

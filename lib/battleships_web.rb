@@ -8,6 +8,8 @@ class BattleshipsWeb < Sinatra::Base
     set :port, 3000
   end
 
+  enable :sessions
+
   set :views, proc { File.join(root, '..', 'views') }
 
   get '/' do
@@ -29,12 +31,11 @@ class BattleshipsWeb < Sinatra::Base
 
     #redirect '/full_game' if full_game?
     set_player_session
-    $game.send(current_player)
-
+    $game.send(current_player1)
     erb :start_game
   end
 
-  def current_player
+  def current_player1
     session[:player]
   end
 
@@ -55,39 +56,34 @@ class BattleshipsWeb < Sinatra::Base
   post '/start_game' do
     if params[:fire_coordinates]
       @fire_coordinates = params[:fire_coordinates]
+      switch_players
+      #{}"It's #{session[current_player]}'s turn"
+      #p session
     else
       $game.send(session[:player]).place_ship Ship.send(params[:ship_type]), params[:ship_coordinates].to_sym, params[:ship_direction]
     end
+
     erb :start_game
   end
 
-  get "/" do
-    switch_players
-    "It's #{session["current_player"]}'s turn"
-    p session
-  end
+  # get "/" do
+  #   switch_players
+  #   "It's #{session["current_player"]}'s turn"
+  #   p session
+  # end
 
   def switch_players
-    @current_player = session["current_player"].freeze
-    if @current_player == "Player 1"
-      session["current_player"] = "Player 2"
-    elsif @current_player == "Player 2"
-      session["current_player"] = "Player1 "
+    $current_player = session[:player].freeze
+    if $current_player == :player_1
+      $current_player = :player_2
+    elsif $current_player == :player_2
+      $current_player = :player_1
     else
-      session["current_player"] = "Player 1"
+      $current_player = :player_1
     end
   end
 
-  get '/player2_place' do
-    erb :place
-  end
-
-  post '/player2_place' do
-    $game.player_2.place_ship Ship.send(params[:ship_type]), params[:ship_coordinates].to_sym, params[:ship_direction]
-    redirect '/start_game'
-  end
-
-    # start the server if ruby file executed directly
+  # start the server if ruby file executed directly
   run! if app_file == $0
 
 end
