@@ -64,7 +64,7 @@ feature 'Starting a new game' do
     end
   end
   feature 'player 2' do
-    scenario 'I am asked to enter my name' do
+    xscenario 'I am asked to enter my name' do
       visit '/player2'
       click_link 'New Game'
       expect(page).to have_content "What's your name?"
@@ -73,5 +73,40 @@ feature 'Starting a new game' do
       click_button 'Submit'
       expect(page).to have_content "Hello, #{our_name}"
     end
+    xscenario 'Gives default name if none submitted' do
+      visit '/player2'
+      click_link 'New Game'
+      click_button 'Submit'
+      expect(page).to have_content "Hello, Player 2"
+    end
+    xscenario 'Can see own board' do
+      game = Game.new Player, Board
+      board = game.own_board_view(game.player_1)
+      visit '/play2'
+      click_button 'Start Game'
+      expect(page).to have_content board
+    end
+    xscenario 'Can see board showing shot history' do
+      game = Game.new Player, Board
+      board = game.opponent_board_view(game.player_1)
+      visit '/play2'
+      click_button 'Start Game'
+      expect(page).to have_content board
+    end
+    feature 'Placing ships on board' do
+        xscenario 'describe ship orientation' do
+          game = Game.new Player, Board
+          visit '/player2'
+          click_link 'New Game'
+          click_button 'Submit'
+          click_button 'Start Game'
+          board = game.own_board_view(game.player_1)
+          find("option[value='submarine']").click
+          fill_in "ship_coordinates", with: "A1"
+          find("option[value='vertical']").click
+          click_button 'Place'
+          expect(page).to have_content board
+        end
+      end
   end
 end

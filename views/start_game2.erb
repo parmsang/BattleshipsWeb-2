@@ -1,16 +1,16 @@
 
 <% if @fire_coordinates %>
-<% @result = $game.player_1.shoot @fire_coordinates.to_sym %>
+<% @result = $game.player_2.shoot @fire_coordinates.to_sym %>
 <% end %>
 
 <div>
 <strong>View of Opponent Board</strong>
   <pre>
-<%= $game.opponent_board_view($game.player_1) %>
-<%= $game.own_board_view($game.player_2) %>
+<%= $game.opponent_board_view($game.player_2) %>
+<%= $game.own_board_view($game.player_1) %>
 ----------
 
-<%= $game.own_board_view($game.player_1) %>
+<%= $game.own_board_view($game.player_2) %>
 </pre>
 <p></p>
   Enter coordinates to place ship
